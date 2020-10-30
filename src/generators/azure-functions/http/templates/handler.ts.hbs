@@ -1,0 +1,66 @@
+import { Context } from "@azure/functions";
+
+import * as express from "express";
+
+import {
+  IResponseErrorInternal,
+  IResponseErrorNotFound,
+  IResponseErrorValidation,
+  IResponseSuccessJson,
+} from "italia-ts-commons/lib/responses";
+
+import { Service as ApiService } from "io-functions-commons/dist/generated/definitions/Service";
+import { ServiceId } from "io-functions-commons/dist/generated/definitions/ServiceId";
+import {
+  AzureApiAuthMiddleware,
+  IAzureApiAuthorization,
+  UserGroup
+} from "io-functions-commons/dist/src/utils/middlewares/azure_api_auth";
+import { ContextMiddleware } from "io-functions-commons/dist/src/utils/middlewares/context_middleware";
+import {
+  withRequestMiddlewares,
+  wrapRequestHandler
+} from "io-functions-commons/dist/src/utils/request_middleware";
+import {
+  IResponseErrorQuery,
+} from "io-functions-commons/dist/src/utils/response";
+
+type I{{ functionName }}Handler = (
+  context: Context,
+  auth: IAzureApiAuthorization
+) => Promise<
+  // tslint:disable-next-line: max-union-size
+  | IResponseSuccessJson<ApiService>
+  | IResponseErrorValidation
+  | IResponseErrorQuery
+  | IResponseErrorNotFound
+  | IResponseErrorInternal
+>;
+
+export function {{ functionName }}Handler(): I{{ functionName }}Handler {
+  return async (context, auth) => {
+    /**
+     * handler body here
+     */
+  };
+}
+
+/**
+ * Wraps a {{ functionName }} handler inside an Express request handler.
+ */
+export function {{ functioName }}(
+): express.RequestHandler {
+  const handler = {{ functionName }}Handler();
+
+  const middlewaresWrap = withRequestMiddlewares(
+    // Extract Azure Functions bindings
+    ContextMiddleware(),
+    // Allow only users in the ApiServiceWrite group
+    AzureApiAuthMiddleware(new Set([UserGroup.{{ functionGroup }}]))
+    /**
+     * other middlewares here
+     */
+  );
+
+  return wrapRequestHandler(middlewaresWrap(handler));
+}

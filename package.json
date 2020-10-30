@@ -1,0 +1,29 @@
+{
+  "name": "io-codegen",
+  "version": "0.1.0",
+  "description": "IO platform code generation tools",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pagopa/io-codegen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pagopa/io-codegen/issues"
+  },
+  "homepage": "https://github.com/pagopa/io-codegen#readme",
+  "scripts": {
+    "build": "tsc",
+    "start": "plop"
+  },
+  "devDependencies": {
+    "italia-tslint-rules": "^1.1.3",
+    "node-plop": "^0.26.2",
+    "plop": "^2.7.4",
+    "ts-node": "^9.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.5"
+  }
+}
