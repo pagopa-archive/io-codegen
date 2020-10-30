@@ -3,21 +3,21 @@
 
 module.exports = {
   git: {
-    tagName: "v${version}",
+    tagName: "v${version}-RELEASE",
     commitMessage: "chore: release ${version}",
     changelog:
-      "npx auto-changelog --config .auto-changelog.json --stdout --commit-limit false --unreleased --template preview.hbs"
+      "npx auto-changelog --config .auto-changelog.json --stdout --commit-limit false --unreleased --template preview.hbs",
   },
   hooks: {
     "before:release": [
       "npx auto-changelog --config .auto-changelog.json --package",
-      "git add CHANGELOG.md package.json"
-    ]
+      "git add CHANGELOG.md package.json",
+    ],
   },
   github: {
-    release: true
+    release: true,
   },
   npm: {
-    publish: false
-  }
+    publish: false,
+  },
 };
